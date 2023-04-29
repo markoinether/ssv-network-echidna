@@ -2,7 +2,21 @@
 
 [building-secure-contracts/program-analysis/echidna at master · crytic/building-secure-contracts · GitHub](https://github.com/crytic/building-secure-contracts/tree/master/program-analysis/echidna#installation)
 
-## run 
+
+## MAIN run test with docker 
+
+docker run -it -v "$PWD":/home/training trailofbits/eth-security-toolbox 
+
+solc-select install 0.8.18 && solc-select use 0.8.18 && cd /home/training
+
+**IMPORTANT** 
+run `npx hardhat compile` after every change, If compilation fails, echidna does not throws error and tests against old version. 
+
+echidna-test . --contract SSVNetworkEchidna
+
+echidna-test . --contract SSVNetworkEchidna --config echidna-config.yml
+
+### run general commands
 
 docker run -it -v "$PWD":/src trailofbits/eth-security-toolbox /bin/bash -c solc-select install 0.8.18 && solc-select use 0.8.18
 
@@ -23,15 +37,6 @@ c 0.5.11
 
 
 -----
-### run test with docker 
-
-docker run -it -v "$PWD":/home/training trailofbits/eth-security-toolbox 
-
-solc-select install 0.8.18 && solc-select use 0.8.18 && cd /home/training
-
-echidna-test . --contract SSVNetworkEchidna
-
-echidna-test . --contract SSVNetworkEchidna --config echidna-config.yml
 
 ### echidna only 
 

@@ -58,7 +58,7 @@ contract SSVNetwork is UUPSUpgradeable, Ownable2StepUpgradeable, ISSVNetwork {
     uint64 public minimumLiquidationCollateral;
 
     DAO public dao;
-    IERC20 private _token;
+    IERC20 public _token;
     Network public network;
 
     // @dev reserve storage space for future new state variables in base contract

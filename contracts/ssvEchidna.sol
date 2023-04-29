@@ -9,17 +9,17 @@ contract SSVNetworkEchidna is SSVNetwork {
     // We will send ETHER_IN_RECEIVER to the flash loan receiver.
     uint256 constant ETHER_IN_RECEIVER = 10e18;
 
-    SSVTokenMock token;
+    // SSVTokenMock token;
 
     string initialVersion;
-    uint256 amount = 10000 * 10 ** 18;
+    uint256 amount = 100 * 10 ** 18;
 
     // IERC20 token;
     // operatorMaxFeeIncrease = 3;
     // declareOperatorFeePeriod = 259200;
-    // uint64 executeOperatorFeePeriod = 345600;
-    // uint64 minimumBlocksBeforeLiquidation = 100800;
-    // uint256 minimumLiquidationCollateral = 345600;
+    // executeOperatorFeePeriod = 345600;
+    // minimumBlocksBeforeLiquidation = 100800;
+    // minimumLiquidationCollateral = 345600;
 
     // SSVTokenMock private token;
 
@@ -32,9 +32,19 @@ contract SSVNetworkEchidna is SSVNetwork {
     // minimumBlocksBeforeLiquidation,
     // minimumLiquidationCollateral
     {
-        token = new SSVTokenMock();
-        initialize("0.3.0", payable(address(token)), 3, 259200, 345600, 100800, 345600);
-        token.transfer(address(this), amount);
+        validatorsPerOperatorLimit = 2_000;
+        operatorMaxFeeIncrease = 3;
+        declareOperatorFeePeriod = 259200;
+        executeOperatorFeePeriod = 345600;
+        minimumBlocksBeforeLiquidation = 100800;
+        minimumLiquidationCollateral = 345600;
+
+        version = bytes32(abi.encodePacked("0.3.0"));
+
+        _token = new SSVTokenMock();
+        _token.transfer(address(this), amount);
+        // this.initialize("0.3.0", payable(token), 3, 259200, 345600, 100800, 345600);
+
         // token.transfer(address(this), amount);
         // deposit();
         // liquidate();
@@ -44,9 +54,9 @@ contract SSVNetworkEchidna is SSVNetwork {
     }
 
     // Sample  test
-    function echidna_test_NEW_token_balance() public view returns (bool) {
-        // return false;
-        return token.balanceOf(address(this)) == amount;
+    function echidna_test_token_balance() public view returns (bool) {
+        // return true;
+        return _token.balanceOf(address(this)) == amount;
     }
 
     // test all / most of cutoff variables
